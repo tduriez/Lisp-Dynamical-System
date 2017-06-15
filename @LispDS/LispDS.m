@@ -1,8 +1,11 @@
 classdef LispDS < handle
    properties
-       Expressions={};
+       LispExpressions={};
+       FormalExpressions={};
        FixedPoints=[];
        Results=[];
+       InitialConditions;
+       OperationsDefinitions;
    end
    
    methods
@@ -11,9 +14,11 @@ classdef LispDS < handle
        obj=findFixedPoints(obj)
        obj=solve(obj)
        obj=solveLyapunov(obj)
+       obj=lispToFormal(obj,Mode)
        
        function obj=LispDS(varargin)
-           obj.Expressions=varargin;
+           obj.LispExpressions=varargin;
+           obj.OperationsDefinitions=opset;
        end
           
            
